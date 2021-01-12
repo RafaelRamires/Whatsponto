@@ -3,15 +3,13 @@
 #import time
 import pandas as pd
 
-def gerar_contatos():
+def load_contatos():
     planilha = pd.read_excel('C:\whatsponto\contatos.xlsx')
     contatos = str(planilha)
     contatos = contatos.split('\n')
     del contatos[0]
     listados = len(contatos)
-    print(listados)
     list_contatos = []
-    count_list = 0
     lista_erros = ''
     for word in contatos:     
         if len(word.split()) == 4:
@@ -19,8 +17,13 @@ def gerar_contatos():
         else:
             lista_erros += 'Erro com ' + word + '\n'
 
-    print(list_contatos) 
-    print(lista_erros)       
+    if lista_erros == '':
+        lista_erros += '0'
+
+    return(list_contatos,listados,lista_erros)
+
        
-gerar_contatos()
+       
+(contatos,listados, erro) = load_contatos()
+
 
