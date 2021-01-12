@@ -13,3 +13,4 @@ list_contatos = []
 for word in contatos:
     list_contatos += [word.split()]
 
+fdbdfbdfbdfbdfbdf
