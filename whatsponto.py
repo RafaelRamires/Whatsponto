@@ -1,6 +1,6 @@
-#from selenium import webdriver
+from selenium import webdriver
 #import tkinter
-#import time
+import time
 import pandas as pd
 
 def load_contatos():
@@ -12,7 +12,7 @@ def load_contatos():
     list_contatos = []
     lista_erros = ''
     for word in contatos:     
-        if len(word.split()) == 4:
+        if len(word.split()) == 3:
             list_contatos += [word.split()]
         else:
             lista_erros += 'Erro com ' + word + '\n'
@@ -22,8 +22,34 @@ def load_contatos():
 
     return(list_contatos,listados,lista_erros)
 
-       
-       
+            
 (contatos,listados, erro) = load_contatos()
 
 
+class whatsponto:
+    def __init__(self):
+        self.mensagem = "Por favor confira seu ponto"
+        self.pessoas = contatos
+        options = webdriver.ChromeOptions()
+        options .add_argument('lang=pt-br')
+        self.driver = webdriver.Chrome(executable_path=r'./chromedriver.exe')
+   
+    def buscar_enviar(self):
+        self.driver.get('https://web.whatsapp.com/')
+        time.sleep(3)
+
+        for pessoa in self.pessoas:
+            pessoa = self.driver.find_element_by_xpath(f"//span[@title'{pessoa}']")
+            pessoa.click()
+            time.sleep(2)
+            chat_box = self.driver.find_element_by_class_name('DuUXI')
+            chat_box.click()
+            chat_box.send_keys(self.mensagem)
+            time.sleep(2)
+            botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
+            botao_enviar.click()
+            time.sleep(2)
+
+
+
+<div tabindex="-1" class="_2HE1Z _1aIlm"><div class="Srlyw" style="visibility: visible;"></div><div class="_1awRl copyable-text selectable-text" contenteditable="true" data-tab="3" dir="ltr"></div></div>
