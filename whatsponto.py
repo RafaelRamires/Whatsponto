@@ -24,6 +24,7 @@ def load_contatos():
 
             
 (contatos,listados, erro) = load_contatos()
+print(contatos,listados,erro)
 
 
 class whatsponto:
@@ -49,7 +50,3 @@ class whatsponto:
             botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
             botao_enviar.click()
             time.sleep(2)
-
-
-
-<div tabindex="-1" class="_2HE1Z _1aIlm"><div class="Srlyw" style="visibility: visible;"></div><div class="_1awRl copyable-text selectable-text" contenteditable="true" data-tab="3" dir="ltr"></div></div>
