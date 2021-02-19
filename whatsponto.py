@@ -1,7 +1,8 @@
-from selenium import webdriver
-#import tkinter
 import time
 import pandas as pd
+from selenium import webdriver
+import pyautogui
+
 
 def load_contatos():
     planilha = pd.read_excel('C:\whatsponto\contatos.xlsx')
@@ -24,7 +25,8 @@ def load_contatos():
 
             
 (contatos,listados, erro) = load_contatos()
-print(contatos,listados,erro)
+print(listados)
+print(erro)
 
 
 class whatsponto:
@@ -32,21 +34,43 @@ class whatsponto:
         self.mensagem = "Por favor confira seu ponto"
         self.pessoas = contatos
         options = webdriver.ChromeOptions()
-        options .add_argument('lang=pt-br')
+        options.add_argument('lang=pt-br')
         self.driver = webdriver.Chrome(executable_path=r'./chromedriver.exe')
    
     def buscar_enviar(self):
         self.driver.get('https://web.whatsapp.com/')
-        time.sleep(3)
+        time.sleep(10)
 
-        for pessoa in self.pessoas:
-            pessoa = self.driver.find_element_by_xpath(f"//span[@title'{pessoa}']")
-            pessoa.click()
-            time.sleep(2)
-            chat_box = self.driver.find_element_by_class_name('DuUXI')
-            chat_box.click()
-            chat_box.send_keys(self.mensagem)
-            time.sleep(2)
-            botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
-            botao_enviar.click()
-            time.sleep(2)
+        for pessoa in self.pessoas: 
+            matricula = pessoa[1]
+            nome= pessoa[2]
+            try: 
+                pessoa = self.driver.find_element_by_xpath(f'//span[@title="{nome}"]')
+                time.sleep(2)
+                pessoa.click()
+            except:
+                print('erro com ' + nome )
+            else:    
+                chat_box = self.driver.find_element_by_class_name('DuUXI')
+                chat_box.click()
+                chat_box.send_keys(self.mensagem)
+                time.sleep(2)
+                botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
+                botao_enviar.click()
+                time.sleep(2)
+                botao_clip = self.driver.find_element_by_xpath("//span[@data-icon='clip']")
+                botao_clip.click()
+                time.sleep(2)
+                botao_documento = self.driver.find_element_by_xpath("//span[@data-icon='attach-document']")
+                botao_documento.click()
+                time.sleep(2)
+                pyautogui.typewrite(f"C:\Whatsponto\Pontos\{matricula}.pdf")
+                pyautogui.press("enter")
+                time.sleep(2)
+                botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
+                botao_enviar.click()
+                time.sleep(2)
+                
+           
+bot = whatsponto() 
+bot.buscar_enviar()       
