@@ -71,6 +71,7 @@ class whatsponto:
                 botao_enviar.click()
                 time.sleep(2)
                  ....tefdfdfdf.....
+                
            
 bot = whatsponto() 
 bot.buscar_enviar()       
