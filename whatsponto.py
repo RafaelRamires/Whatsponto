@@ -70,7 +70,7 @@ class whatsponto:
                 botao_enviar = self.driver.find_element_by_xpath("//span[@data-icon='send']")
                 botao_enviar.click()
                 time.sleep(2)
-                 ....tefdfdfdf.....
+
                 
            
 bot = whatsponto() 
